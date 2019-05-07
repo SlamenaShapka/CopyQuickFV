@@ -76,7 +76,7 @@
 
             <div class="bodyStudent">
                 <div class="containerBody">
-                    <label>Saldo: </label><label id="saldo"></label>
+                    <label id="saldo">Saldo: </label>
 
                     <div class="opciones">
 

@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author PC02
+ * @author fernando
  */
-public class ServletLogin extends HttpServlet {
+public class ServletArchivoEscogido extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,7 +45,7 @@ public class ServletLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**
@@ -61,37 +61,29 @@ public class ServletLogin extends HttpServlet {
             throws ServletException, IOException {
         String json = (Utils.readParams(request));
 
-        UserManager um = new UserManager();
-        Usuario user;
+        ArchivoManager am = new ArchivoManager();
+        Archivo file = new Archivo();
+        file.setIdArchivo(Integer.parseInt(Character.toString(json.charAt(json.indexOf(":") + 1))));
 
-        user = (Usuario) Utils.fromJson(json, Usuario.class);
+        Archivo documento = am.findFile(file);
 
-        Usuario bdUser = um.findUser(user);
-
-        if (bdUser != null) {
-            if (bdUser.getContrasena().equals(user.getContrasena())) {
-                Usuario toJson = new Usuario();
-                toJson.setNomUsuario(bdUser.getNomUsuario());
-                toJson.setContrasena(bdUser.getContrasena());
-                toJson.setTipo(bdUser.getTipo());
-
-                String usuario = Utils.toJson(toJson);
-
-                try (PrintWriter out = response.getWriter()) {
-                    out.println(usuario);
-                }
-            } else {
-                try (PrintWriter out = response.getWriter()) {
-                    /* TODO output your page here. You may use following sample code. */
-                    out.println("ContrasenaIncorrecta");
-                }
-            }
-        } else {
+        if (documento != null) {
+            Archivo aEscogido = new Archivo();
+            aEscogido.setIdArchivo(documento.getIdArchivo());
+            aEscogido.setNombre(documento.getNombre());
+            aEscogido.setEscuela(documento.getEscuela());
+            aEscogido.setNumHojas(documento.getNumHojas());
+            aEscogido.setPublico(documento.getPublico());
+            aEscogido.setSemestre(documento.getSemestre());
+            
+            String toJson = Utils.toJson(aEscogido);
+            
             try (PrintWriter out = response.getWriter()) {
                 /* TODO output your page here. You may use following sample code. */
-                out.println("UsuarioNoRegistrado");
+                out.println(toJson);
             }
         }
+
     }
 
     /**

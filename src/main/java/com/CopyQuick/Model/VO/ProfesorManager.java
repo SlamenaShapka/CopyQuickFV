@@ -14,10 +14,14 @@ import com.CopyQuick.Model.DAO.DAO_Profesor;
  */
 public class ProfesorManager {
     
-    public String insertEstudent(Profesor prof){
-        DAO_Profesor dp = new DAO_Profesor();
-        dp.InsertObject(prof);
-        return Utils.toJson(prof);
+    DAO_Profesor dp = new DAO_Profesor();
+    
+    public boolean insertEstudent(Profesor prof){
+        return dp.InsertObject(prof);
+    }
+    
+    public Profesor findEstByNomUser(Usuario user){
+        return dp.findEstByNomUser(user).get(0);
     }
     
 }

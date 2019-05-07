@@ -1,7 +1,31 @@
+////////Cookies
+//----------Crear Cookie
+function setCookie(cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = "NomUsuario=" + cvalue + ";" + expires + ";path=/";
+    console.log(getCookie("NomUsuario"));
+}
 
-var token;
-var uri = "http://localhost:8080/copyquickmaven/";
-////Registro
+//----------Obtener Cookie
+function getCookie(cname) {
+    var name = "NomUsuario=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+////////Registro
 //----------Ingresar---------------------------------------------------------------------------------------------
 function ingresar() {
     var nomUsuario = $('#nomUsuario').val();
@@ -17,14 +41,20 @@ function ingresar() {
         data: dataToSend,
         success: function (rta) {
             var result = rta.toString();
-            if (result === "UsuarioNoRegistrado") {
-                console.log("Usuario no registrado.");
+            if (result.startsWith("UsuarioNoRegistrado")) {
                 $("#mal").remove();
                 $(".result").append('<h5 id="mal">El usuario no está registrado.</h5>');
-            } else {
+            } else if (result.startsWith("ContrasenaIncorrecta")) {
                 $("#mal").remove();
                 $(".result").append('<h5 id="mal">La contraseña es incorrecta.</h5>');
-                console.log("Contrasena incorrecta.");
+            } else {
+                var usuario = JSON.parse(result);
+                setCookie(nomUsuario, 1);
+                if (usuario.tipo === "Estudiante") {
+                    window.location.replace("VistaEstudiante.jsp");
+                } else {
+                    window.location.replace("VistaProfesor.jsp");
+                }
             }
         }
     });
@@ -77,7 +107,7 @@ function registrar() {
         data: dataToSend,
         success: function (rta) {
             var result = rta.toString();
-            if (result === "UsuarioRegistrado") {
+            if (result.startsWith("UsuarioRegistrado")) {
                 console.log("UsuarioRegistrado");
                 console.log(result);
                 $("#bien").remove();
@@ -106,13 +136,18 @@ function registrar() {
 ////Vista estudiante
 //----------Ver saldo--------------------------------------------------------------------------------------------
 function verSaldo() {
+    var nomUsuario = getCookie();
+    console.log(nomUsuario);
+    info = {
+        "nomUsuario": nomUsuario
+    };
+    dataToSend = JSON.stringify(info);
     $.ajax({
-        url: "ServletEstudiante",
-        type: "GET",
-        headers: {"token": token},
-        data: {"idPersona": "34"},
+        url: "http://localhost:8080/CopyQuick/ServletSaldo",
+        type: "POST",
+        data: dataToSend,
         success: function (rta) {
-            console.log(rta);
+            $("#saldo").append('<label class="saldo">' + rta + '</label>');
         }
     });
 }
@@ -122,19 +157,26 @@ function verSaldo() {
 function archivoEscogido(idFile) {
     var id = idFile;
     info = {
-        "idArchivo": id,
+        "idArchivo": id
     };
     dataToSend = JSON.stringify(info);
     $.ajax({
-        url: "http://localhost:8080/CopyQuick/ServletArchivos",
+        url: "http://localhost:8080/CopyQuick/ServletArchivoEscogido",
         type: "POST",
         dataType: 'json',
         contentType: "application/json;charset=UTF-8",
-        data: info,
-        success: function () {
-            console.log(dataToSend);
+        data: dataToSend,
+        success: function (rta) {
+            console.log(rta);
+            var result = rta.toString();
+            console.log(result);
+//            $('.archivo').append('<embed src="C:/Users/PC02/Desktop/ArchivosCopyQuick/'+rta.nombre+'#toolbar=0" width="450" height="500" id="archivo">');
+//            $('.nombreArchivo').append('<label id="nameFile">'+rta.nombre+'</label>');
+            window.location.href = "ArchivoEscogido.jsp?Archivo=" + rta.nombre;
         }
     });
+
+
 }
 //----------Ver archivos----------------------------------------------------------------------------------------
 function mostrarArchivos() {
@@ -239,17 +281,34 @@ function saveFile(file_data) {
         data: dataToSend,
         complete: function (rta) {
             var result = rta.toString();
-            if(result === "ArchivoSubido"){
+            if (result === "ArchivoSubido") {
                 console.log("ArchivoSubido");
                 console.log(result);
-            }else if(result === "ErrorAlSubir"){
+            } else if (result === "ErrorAlSubir") {
                 console.log("ErrorAlSubir");
                 console.log(result);
-            }else{//Usuario Invalido
+            } else {//Usuario Invalido
                 console.log("UsuarioInvalido");
                 console.log(result);
             }
         }
     });
     return filename;
-}   
+}
+
+function generarqr2(nameFile) {
+    var name = nameFile;
+
+}
+
+function nameFile() {
+    var sPaginaURL = window.location.search.substring(1);
+    var nameFile = sPaginaURL.substring(sPaginaURL.indexOf("=") + 1, sPaginaURL.length);
+    $('#nombreArchivo').append('<label class="name">' + nameFile + '</label>');
+    $(".archivo").html('<embed src="C:/Users/PC02/Desktop/ArchivosCopyQuick/' + nameFile + '.pdf#toolbar=0" type="application/pdf" id="archivo">');
+    return nameFile;
+}
+
+
+
+

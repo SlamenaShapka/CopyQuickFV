@@ -39,11 +39,10 @@ public class Utils {
 	
 	public static GsonBuilder builder = new GsonBuilder();
 	public static String toJson(Object obj){
-//		if(builder == null){
-//			builder = new GsonBuilder();
-//			builder.setExclusionStrategies(new TestExclStrat());
-//		}
-            System.out.println("Holi 1");
+		if(builder == null){
+			builder = new GsonBuilder();
+			builder.setExclusionStrategies(new TestExclStrat());
+		}
                 System.out.println(builder.create().toJson(obj));
 	    return builder.create().toJson(obj);
 	}

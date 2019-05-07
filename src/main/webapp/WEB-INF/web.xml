@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    
     <servlet>
         <servlet-name>ServletRegistro</servlet-name>
         <servlet-class>com.CopyQuick.Controller.ServletRegistro</servlet-class>
@@ -31,6 +30,14 @@
             <file-size-threshold>1048576</file-size-threshold>
         </multipart-config>
     </servlet>
+    <servlet>
+        <servlet-name>ServletArchivoEscogido</servlet-name>
+        <servlet-class>com.CopyQuick.Controller.ServletArchivoEscogido</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletSaldo</servlet-name>
+        <servlet-class>com.CopyQuick.Controller.ServletSaldo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistro</servlet-name>
         <url-pattern>/ServletRegistro</url-pattern>
@@ -54,6 +61,14 @@
     <servlet-mapping>
         <servlet-name>SubirArchivoArchivo</servlet-name>
         <url-pattern>/SubirArchivoArchivo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletArchivoEscogido</servlet-name>
+        <url-pattern>/ServletArchivoEscogido</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletSaldo</servlet-name>
+        <url-pattern>/ServletSaldo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

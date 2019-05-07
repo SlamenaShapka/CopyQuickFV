@@ -15,10 +15,15 @@ import java.util.List;
  */
 public class main {
     public static void main(String arg[]){
-        ArchivoManager am = new ArchivoManager();
-        List<Archivo> archivos = am.findFiles();
-        for(int i=0 ; i<archivos.size() ; i++){
-            System.out.println(archivos.get(i).getNombre());
-        }
+        EstudianteManager em = new EstudianteManager();
+        Usuario user = new Usuario();
+        
+        user.setNomUsuario("Slamena");
+        user.setContrasena("Shapka");
+        user.setTipo("Estudiante");
+        
+        Estudiante est = em.findEstByNomUser(user);
+        
+        System.out.println(est.getSaldo());
     }
 }

@@ -101,13 +101,11 @@ public class ServletRegistro extends HttpServlet {
                 em.insertEstudent(est);
                 try (PrintWriter out = response.getWriter()) {
                     /* TODO output your page here. You may use following sample code. */
-                    System.out.println("Registrado");
                     out.println("UsuarioRegistrado");
                 }
             } else {
                 try (PrintWriter out = response.getWriter()) {
                     /* TODO output your page here. You may use following sample code. */
-                    System.out.println("Existente");
                     out.println("UsuarioExistente");
                 }
             }
@@ -120,8 +118,20 @@ public class ServletRegistro extends HttpServlet {
             prof.setNomUsuario(user);
             prof.setPlanta(true);
             prof.setSaldo(0);
-            um.insertUser(user);
-            pm.insertEstudent(prof);
+            if (um.insertUser(user)) {
+                pm.insertEstudent(prof);
+                try (PrintWriter out = response.getWriter()) {
+                    /* TODO output your page here. You may use following sample code. */
+                    System.out.println("Registrado");
+                    out.println("UsuarioRegistrado");
+                }
+            } else {
+                try (PrintWriter out = response.getWriter()) {
+                    /* TODO output your page here. You may use following sample code. */
+                    System.out.println("Existente");
+                    out.println("UsuarioExistente");
+                }
+            }
         }
     }
 

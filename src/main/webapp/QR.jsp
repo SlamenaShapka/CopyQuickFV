@@ -1,16 +1,3 @@
-<%-- 
-    Document   : Login
-    Created on : 27/02/2019, 04:37:53 PM
-    Author     : brown
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>CopyQuick</title>
@@ -19,20 +6,27 @@ and open the template in the editor.
     </head>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Comfortaa');
+
+
         body {
             background: #456;
             font-family: 'Comfortaa', cursive;
         }
+
         .login {
             width: 400px;
             margin: 16px auto;
             font-size: 16px;
         }
+
+
         .login-header,
         .login p {
             margin-top: 0;
             margin-bottom: 0;
         }
+
+
         .login-triangle {
             width: 0;
             margin-right: auto;
@@ -40,6 +34,7 @@ and open the template in the editor.
             border: 12px solid transparent;
             border-bottom-color: #28d;
         }
+
         .login-header {
             background: #28d;
             padding: 30px;
@@ -49,13 +44,16 @@ and open the template in the editor.
             text-transform: uppercase;
             color: #fff;
         }
+
         .login-container {
             background: #ebebeb;
             padding: 12px;
         }
+
         .login p {
             padding: 12px;
         }
+
         .login input {
             box-sizing: border-box;
             display: block;
@@ -67,6 +65,7 @@ and open the template in the editor.
             font-family: inherit;
             font-size: 0.95em;
         }
+
         .login input {
             box-sizing: border-box;
             display: block;
@@ -84,10 +83,13 @@ and open the template in the editor.
             border-color: #bbb;
             color: #555;
         }
+
+
         .login input[type="text"]:focus,
         .login input[type="password"]:focus {
             border-color: #888;
         }
+
         .login input[type="submit"] {
             background: #28d;
             border-color: transparent;
@@ -96,51 +98,92 @@ and open the template in the editor.
             box-sizing: border-box;
             width: 50%;
         }
+
         .login input[type="submit"]:hover {
             background: #17c;
         }
+
         .login input[type="submit"]:focus {
+
             border-color: #05a;
         }
-        h5#bien{
-            font-family: 'Comfortaa', cursive;
-            color: rgb(133, 255, 85);
+        #item_txt{
+            width: 20%;
         }
-        h5#mal{
+        #generarCodigo{
+            width: 20%;
+            background-color: #5AA1E3;
+            color: #fff;
+        }
+        #descargarCodigo{
+            width: 10%;
+            background-color: #3CB371;
+            color: #fff;
+            display: none;
+            text-align: center;
+            border: #eee solid 2px;
+            text-decoration: none;
+        }
+        #codigoQR{
+            width: 256px;
+            height: 256px;
+            margin-top: 25px;
+            border: 2px solid #eee;
+        }
+        button {
+            display: block;
+            font-size: 5mm;
+            border: none;
+            border-radius: 8px;
+            background: rgb(0, 183, 255);
             font-family: 'Comfortaa', cursive;
-            color: rgb(255, 82, 82);
+            color:white;
+            height: 5%;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
-    <title>index</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Código QR</title>
+            <link rel='stylesheet' href='style.css' type='text/css'>
+        </head>
+        <body>
 
+            <div class="login">
+                <div class="login-container">
+                    <text id="item_txt" type="text" placeholder="Ingresa algún texto" value="">
 
-    <body>
-        <div class="login">
-            <div class="login-triangle"></div>
+                    <button id="generarqr" onclick="generateQR()">Generar</button> 
+                    <div id="codigoQR"></div> 
+                    <h1>Dirigete a la fotocopiadora con este código y recibe tu impresion</h1>
 
-            <h2 class="login-header">CopyQuick</h2>
-
-
-            <div class="login-container" action="ControladorLogin" method="post">
-                <input  type="hidden" id="nombrePag" value="index">
-                <h4 class="result"></h4>
-                <p><input type="text" id="nomUsuario"  placeholder="Usuario"></p>
-                <p><input type="password" id="contrasena" placeholder="Contraseña"></p>
-                <p align="center">
-                    <input type="submit" id="Ingresar" value="Ingresar" onclick="ingresar()">
-                    &nbsp;
-                    <input id="Registrar" type="submit" value="Registrarse" onclick="myFunction()">
-                </p>
-
-
+                </div>
             </div>
-        </div>
+        </body>
+
+        <script src="JS/jquery.min.js"></script>
+        <script src="JS/qrcode.js"></script>
         <script>
-            function myFunction() {
-                location.href = "Registro.jsp";
+            var sPaginaURL = window.location.search.substring(1);
+            var nameFile = sPaginaURL.substring(sPaginaURL.indexOf("=") + 1, sPaginaURL.length);
+            var miCodigoQR = new QRCode("codigoQR");
+            function generateQR() {
+                var cadena = nameFile;
+                if (cadena == "") {
+                    alert("Ingresa un texto");
+                    $("#item_txt").focus();
+                } else {
+                    miCodigoQR.makeCode(cadena);
+                }
             }
+
+
         </script>
-    </body>
-</html>
+    </html>
+
+
+

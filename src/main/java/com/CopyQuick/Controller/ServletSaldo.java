@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author PC02
  */
-public class ServletLogin extends HttpServlet {
+public class ServletSaldo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,6 +31,18 @@ public class ServletLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ServletSaldo</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ServletSaldo at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,37 +71,43 @@ public class ServletLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String json = (Utils.readParams(request));
-
+        EstudianteManager em = new EstudianteManager();
+        ProfesorManager pm = new ProfesorManager();
         UserManager um = new UserManager();
-        Usuario user;
-
-        user = (Usuario) Utils.fromJson(json, Usuario.class);
-
+        
+        String[] json = null;
+        json = (Utils.readParams(request)).split(",");
+        json[0] = json[0].substring(1);
+        json[json.length - 1] = json[json.length - 1].substring(0, json[json.length - 1].length() - 1);
+        String[][] datos = new String[json.length][2];
+        for (int i = 0; i < json.length; i++) {
+            String[] split = json[i].split(":");
+            datos[i][0] = split[0];
+            datos[i][1] = split[1].substring(1, split[1].length() - 1);
+        }
+        
+        Usuario user = new Usuario();
+        user.setNomUsuario(datos[0][1]);
+        
         Usuario bdUser = um.findUser(user);
-
-        if (bdUser != null) {
-            if (bdUser.getContrasena().equals(user.getContrasena())) {
-                Usuario toJson = new Usuario();
-                toJson.setNomUsuario(bdUser.getNomUsuario());
-                toJson.setContrasena(bdUser.getContrasena());
-                toJson.setTipo(bdUser.getTipo());
-
-                String usuario = Utils.toJson(toJson);
-
-                try (PrintWriter out = response.getWriter()) {
-                    out.println(usuario);
-                }
-            } else {
-                try (PrintWriter out = response.getWriter()) {
-                    /* TODO output your page here. You may use following sample code. */
-                    out.println("ContrasenaIncorrecta");
-                }
-            }
-        } else {
+        
+        String saldo;
+        
+        if (bdUser.getTipo().equals("Estudiante")) {
+            Estudiante est;
+            est = em.findEstByNomUser(user);
             try (PrintWriter out = response.getWriter()) {
                 /* TODO output your page here. You may use following sample code. */
-                out.println("UsuarioNoRegistrado");
+                saldo = String.valueOf(est.getSaldo());
+                out.println(saldo);
+            }
+        } else {
+            Profesor prof;
+            prof = pm.findEstByNomUser(user);
+            try (PrintWriter out = response.getWriter()) {
+                /* TODO output your page here. You may use following sample code. */
+                saldo = String.valueOf(prof.getSaldo());
+                out.println(saldo);
             }
         }
     }

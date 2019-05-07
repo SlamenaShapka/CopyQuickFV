@@ -23,7 +23,7 @@ public class DAO_Archivo {
     public ArrayList<Archivo> findFiles(){
         em = EMF.get().createEntityManager();
         em.getTransaction().begin();
-        Query query = em.createQuery("SELECT a FROM Archivo a");
+        Query query = em.createQuery("SELECT a FROM Archivo a WHERE publico=1");
         return (ArrayList<Archivo>) query.getResultList();
     }
     
