@@ -5,6 +5,7 @@
  */
 package com.CopyQuick.Controller;
 
+import com.CopyQuick.Model.VO.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -35,7 +36,7 @@ public class ServletRegistroQR extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServletRegistroQR</title>");            
+            out.println("<title>Servlet ServletRegistroQR</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ServletRegistroQR at " + request.getContextPath() + "</h1>");
@@ -70,7 +71,22 @@ public class ServletRegistroQR extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String json = (Utils.readParams(request));
+
+        RegistroManager rm = new RegistroManager();
+        Registro regist;
+
+        regist = (Registro) Utils.fromJson(json, Usuario.class);
+
+        if (rm.insertRegistro(regist)) {                                          //El registro se creo satisfactoriamente.
+            try (PrintWriter out = response.getWriter()) {
+                out.println("Ok");
+            }
+        } else {                                                                  //El registro no se pudo crear.
+            try (PrintWriter out = response.getWriter()) {
+                out.println("Error");
+            }
+        }
     }
 
     /**

@@ -37,7 +37,7 @@ public class DAO_Registro {
 
     }
 
-    public Registro findUser(Registro user) {
+    public Registro findRegistro(Registro user) {
 
         try {
             em = EMF.get().createEntityManager();

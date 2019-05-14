@@ -12,6 +12,14 @@ import com.CopyQuick.Model.DAO.*;
  * @author PC02
  */
 public class RegistroManager {
-    DAO_Registro dr;
+    DAO_Registro dr = new DAO_Registro();
+    
+    public boolean insertRegistro(Registro regist) {
+        return dr.InsertObject(regist);
+    }
+    
+    public Registro findRegistro(Registro regist){
+        return dr.findRegistro(regist);
+    }
     
 }
