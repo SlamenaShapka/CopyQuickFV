@@ -38,13 +38,15 @@ private final static Logger LOGGER =
 
 		   String id = request.getParameter("filename");
 		   
-		   
 		    // Create path components to save the file
-		    String 	path = "C:\\Users\\daniel rubio\\Downloads"; //Carpeta en el sistema de az archivos donde estÃ¡ el archivo.
-		    
 
+		    final String path;
+		    	
+		    path = "C:\\Users\\daniel rubio\\Escritorio";
+	
 	         String fileName = path+id;
-	         String fileType = "document/pdf";
+				//el filetype debe ser el de pdf
+	         String fileType = "application/pdf";
 	         // Find this file id in database to get file name, and file type
 
 	         // You must tell the browser the file type you are going to send
@@ -80,7 +82,7 @@ private final static Logger LOGGER =
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String	path = "C:\\Users\\PC02\\Desktop\\ArchivosCopyQuick\\";
+		String	path = "C:C:\\Users\\daniel rubio\\Escritorio";
 	   
 	   //Guardar el nombre del archivo basado en la hora para evitar que se repitan los nombres de los archivos.
 	    final Part filePart = request.getPart("file");
