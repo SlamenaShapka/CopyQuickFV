@@ -7,14 +7,19 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <script src="jquery-3.3.1.min.js"></script>
-    <script src="ajax.js"></script>
-    <title>JSP Page</title>
-    <style>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <script src="jquery-3.3.1.min.js"></script>
+        <script src="ajax.js"></script>
+        <title>JSP Page</title>
+        <style>
             @import url('https://fonts.googleapis.com/css?family=Comfortaa');
-			
+            @font-face{
+
+                font-family:Jek;
+                src:url(Fontjek.otf);
+            }
+
 
             body {
                 background: #456;
@@ -40,7 +45,9 @@
             }
 
             .administrador-header,
+            .administrador-header2,
             .administrador p {
+
                 margin-top: 0;
                 margin-bottom: 0;
             }
@@ -56,13 +63,14 @@
 
 
             .administrador-header {
+                font-family:Jek;
                 background: #28d;
-                padding: 30px;
+                padding: 5px;
                 font-size: 1.4em;
                 font-weight: normal;
                 text-align: left;
                 text-transform: uppercase;
-                color: #fff;
+               
             }
 
             .administrador-container {
@@ -121,26 +129,28 @@
                 text-align: center;
 
             }
+      h2{
+       color: #fff;
+      }
+      h3{
+       color: #FFFF00;
+      }
 
         </style>
-  </head>
-  <body>
-    <div class="administrador">
-      <div class="administrador-triangle"></div>
-      <h2 class="administrador-header">CopyQuick</h2>
-      <form action="/saldo" class="administrador-container" method="post">
-        <p align="center"> Ingrese los datos que se le piden a continuación</p>
-        <input action="" id="nomUsuario" placeholder="Nombre de Usuario"> &nbsp;
-        <input action="" id="saldo" placeholder="Saldo"> &nbsp;
-        <center> <a onclick="agrearSaldo()" class="button">Agregar Saldo</a> </center>
-      </form>
-      <div> </div>
-    </div>
-    <script>
-  function agregarsaldo(){
-  //
-  }
-  </script>
-  </body>
+    </head>
+    <body>
+        <div class="administrador">
+            <div class="administrador-triangle"></div>
+            <h2 class="administrador-header">Copy</h2>
+            <h3 class="administrador-header">Quick</h3>
+            <form action="/saldo" class="administrador-container" method="post">
+                <p align="center"> Ingrese los datos que se le piden a continuación</p>
+                <input action="" id="nomUsuario" placeholder="Nombre de Usuario"> &nbsp;
+                <input action="" id="saldo" placeholder="Saldo"> &nbsp;
+                <center> <button onclick="agregarsaldo()" class="button">Agregar Saldo</button> </center>
+            </form>
+            <div> </div>
+        </div>
+    </body>
 </html>
 
