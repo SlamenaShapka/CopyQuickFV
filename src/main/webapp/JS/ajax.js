@@ -309,6 +309,19 @@ function nameFile() {
     return nameFile;
 }
 
-
+function generarRegistro(){
+    var nomUsuario = getCookie();
+    
+    $.ajax({
+        url: "http://localhost:8080/CopyQuick/ServletRegistroQR",
+        type: "POST",
+        dataType: 'json',
+        contentType: "application/json;charset=UTF-8",
+        data: dataToSend,
+        complete: function (rta) {
+            
+        }
+    });
+}
 
 
