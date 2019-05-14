@@ -57,7 +57,15 @@ public class ServletRegistroQR extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String idRegistro = Utils.readParams(request);
+        RegistroManager rm = new RegistroManager();
+        Registro regist = new Registro();
+        
+        regist.setIdRegistro(Integer.parseInt(idRegistro));
+        
+        Registro rgsDB = rm.findRegistro(regist);
+        
+        
     }
 
     /**

@@ -50,11 +50,7 @@ function ingresar() {
             } else {
                 var usuario = JSON.parse(result);
                 setCookie(nomUsuario, 1);
-                if (usuario.tipo === "Estudiante") {
-                    window.location.replace("VistaEstudiante.jsp");
-                } else {
-                    window.location.replace("VistaProfesor.jsp");
-                }
+                window.location.replace("VistaEstudiante.jsp");
             }
         }
     });
