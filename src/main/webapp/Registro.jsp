@@ -104,12 +104,7 @@
                     <input id="contrasena" type="password" placeholder="Contrasena">
                     <br>
                     <br>
-                    <select id="tipoUsuario" onChange="tipoUsuario()">
-                        <option>Escoge una opción</option>
-                        <option value="estudiante">Estudiante</option>
-                        <option value="profesor">Profesor</option>
-                       
-                    </select>
+                    
                 </div>
                 <br>
                 <br>
