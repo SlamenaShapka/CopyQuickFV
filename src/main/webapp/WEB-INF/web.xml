@@ -13,10 +13,6 @@
         <servlet-class>com.CopyQuick.Controller.ServletArchivos</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Loquesea</servlet-name>
-        <servlet-class>com.CopyQuick.Controller.Loquesea</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SubirArchivoDatos</servlet-name>
         <servlet-class>com.CopyQuick.Controller.SubirArchivoDatos</servlet-class>
     </servlet>
@@ -49,10 +45,6 @@
     <servlet-mapping>
         <servlet-name>ServletArchivos</servlet-name>
         <url-pattern>/ServletArchivos</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Loquesea</servlet-name>
-        <url-pattern>/Loquesea</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SubirArchivoDatos</servlet-name>
