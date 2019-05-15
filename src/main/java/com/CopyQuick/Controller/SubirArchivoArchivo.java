@@ -21,6 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+
+
+
 /**
  *
  * @author PC02
@@ -42,7 +45,7 @@ private final static Logger LOGGER =
 
 		    final String path;
 		    	
-		    path = "C:\\Users\\daniel rubio\\Escritorio";
+		    path = "C:\\Users\\daniel rubio\\Escritorio\\prueba";
 	
 	         String fileName = path+id;
 				//el filetype debe ser el de pdf
@@ -66,6 +69,7 @@ private final static Logger LOGGER =
 	         FileInputStream in = new FileInputStream(my_file);
 	         byte[] buffer = new byte[4096];
 	         int length;
+                 
 	         while ((length = in.read(buffer)) > 0){
 	            out.write(buffer, 0, length);
 	         }
@@ -82,7 +86,7 @@ private final static Logger LOGGER =
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String	path = "C:C:\\Users\\daniel rubio\\Escritorio";
+		String	path = "C:\\Users\\daniel rubio\\Escritorio";
 	   
 	   //Guardar el nombre del archivo basado en la hora para evitar que se repitan los nombres de los archivos.
 	    final Part filePart = request.getPart("file");

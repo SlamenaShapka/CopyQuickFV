@@ -49,10 +49,10 @@ public class ServletArchivos extends HttpServlet {
         ArchivoManager am = new ArchivoManager();
         List<Archivo> archivos = am.findFiles();
         String archivo = archivos.get(0).getIdArchivo() + "," + archivos.get(0).getNombre()
-                + "," + archivos.get(0).getNomUsuario().getNomUsuario() + "," + archivos.get(0).getSemestre();
+                + "," + archivos.get(0).getNomUsuario().getNomUsuario() + "," + archivos.get(0).getNumHojas();
         for (int i = 1; i < archivos.size(); i++) {
             archivo = archivo.concat("-" + archivos.get(i).getIdArchivo() + "," + archivos.get(i).getNombre()
-                    + "," + archivos.get(i).getNomUsuario().getNomUsuario() + "," + archivos.get(i).getSemestre());
+                    + "," + archivos.get(i).getNomUsuario().getNomUsuario() + "," + archivos.get(i).getNumHojas());
         }
 
         try (PrintWriter out = response.getWriter()) {

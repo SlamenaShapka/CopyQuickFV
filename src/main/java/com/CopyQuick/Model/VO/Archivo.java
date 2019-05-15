@@ -5,6 +5,8 @@
  */
 package com.CopyQuick.Model.VO;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -20,6 +22,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 
 /**
  *
@@ -36,7 +40,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Archivo.findByEscuela", query = "SELECT a FROM Archivo a WHERE a.escuela = :escuela"),
     @NamedQuery(name = "Archivo.findByPublico", query = "SELECT a FROM Archivo a WHERE a.publico = :publico"),
     @NamedQuery(name = "Archivo.findByNumHojas", query = "SELECT a FROM Archivo a WHERE a.numHojas = :numHojas")})
+
+
 public class Archivo implements Serializable {
+    
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
