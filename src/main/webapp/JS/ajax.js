@@ -36,7 +36,7 @@ function ingresar() {
     };
     dataToSend = JSON.stringify(info);
     $.ajax({
-        url: "http://localhost:8080/CopyQuick/ServletLogin",
+        url: "http://localhost:8080/CopyQuickFV/ServletLogin",
         type: "POST",
         data: dataToSend,
         success: function (rta) {
@@ -98,7 +98,7 @@ function registrar() {
     }
     dataToSend = JSON.stringify(info);
     $.ajax({
-        url: "http://localhost:8080/CopyQuick/ServletRegistro",
+        url: "http://localhost:8080/CopyQuickFV/ServletRegistro",
         type: "POST",
         data: dataToSend,
         success: function (rta) {
@@ -139,7 +139,7 @@ function verSaldo() {
     };
     dataToSend = JSON.stringify(info);
     $.ajax({
-        url: "http://localhost:8080/CopyQuick/ServletSaldo",
+        url: "http://localhost:8080/CopyQuickFV/ServletSaldo",
         type: "POST",
         data: dataToSend,
         success: function (rta) {
@@ -157,7 +157,7 @@ function archivoEscogido(idFile) {
     };
     dataToSend = JSON.stringify(info);
     $.ajax({
-        url: "http://localhost:8080/CopyQuick/ServletArchivoEscogido",
+        url: "http://localhost:8080/CopyQuickFV/ServletArchivoEscogido",
         type: "POST",
         dataType: 'json',
         contentType: "application/json;charset=UTF-8",
@@ -177,7 +177,7 @@ function archivoEscogido(idFile) {
 //----------Ver archivos----------------------------------------------------------------------------------------
 function mostrarArchivos() {
     $.ajax({
-        url: "http://localhost:8080/CopyQuick/ServletArchivos",
+        url: "http://localhost:8080/CopyQuickFV/ServletArchivos",
         type: "GET",
         success: function (rta) {
             var archivos = rta.toString().split("-");
@@ -187,7 +187,6 @@ function mostrarArchivos() {
                                                 <td><button class="idArchivoo" onclick="archivoEscogido(' + detalle[0] + ')">' + detalle[0] + '</button></td>\n\
                                                 <td>' + detalle[1] + '</td>\n\
                                                 <td>' + detalle[2] + '</td>\n\
-                                                <td>' + detalle[3] + '</td>\n\
                                            </tr>');
             }
         }
@@ -206,7 +205,7 @@ function agrearSaldo() {
     };
     dataToSend = JSON.stringify(info);
     $.ajax({
-        url: "http://localhost:8080/CopyQuickV2/ServletSaldo",
+        url: "http://localhost:8080/CopyQuickFV/ServletSaldo",
         type: "POST",
         dataType: 'json',
         contentType: "application/json;charset=UTF-8",
@@ -253,7 +252,7 @@ function saveFile(file_data) {
     };
     dataToSend = JSON.stringify(info);
     $.ajax({
-        url: "http://localhost:8080/CopyQuick/SubirArchivoArchivo", //La url del servlet.
+        url: "http://localhost:8080/CopyQuickFV/SubirArchivoArchivo", //La url del servlet.
         type: "POST",
         data: form_data,
         processData: false,
@@ -270,7 +269,7 @@ function saveFile(file_data) {
         }
     });
     $.ajax({
-        url: "http://localhost:8080/CopyQuick/SubirArchivoDatos",
+        url: "http://localhost:8080/CopyQuickFV/SubirArchivoDatos",
         type: "POST",
         dataType: 'json',
         contentType: "application/json;charset=UTF-8",
@@ -309,7 +308,7 @@ function generarRegistro(){
     var nomUsuario = getCookie();
     
     $.ajax({
-        url: "http://localhost:8080/CopyQuick/ServletRegistroQR",
+        url: "http://localhost:8080/CopyQuickFV/ServletRegistroQR",
         type: "POST",
         dataType: 'json',
         contentType: "application/json;charset=UTF-8",
