@@ -42,6 +42,10 @@
         <servlet-name>ServletRegistroQR</servlet-name>
         <servlet-class>com.CopyQuick.Controller.ServletRegistroQR</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletQR</servlet-name>
+        <servlet-class>com.CopyQuick.Controller.ServletQR</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistro</servlet-name>
         <url-pattern>/ServletRegistro</url-pattern>
@@ -77,6 +81,10 @@
     <servlet-mapping>
         <servlet-name>ServletRegistroQR</servlet-name>
         <url-pattern>/ServletRegistroQR</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletQR</servlet-name>
+        <url-pattern>/ServletQR</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

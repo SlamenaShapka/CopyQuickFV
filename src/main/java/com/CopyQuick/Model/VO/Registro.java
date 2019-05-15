@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -58,6 +60,12 @@ public class Registro implements Serializable {
     private Integer paginaIni;
     @Column(name = "paginaFin")
     private Integer paginaFin;
+    @JoinColumn(name = "nomUsuario", referencedColumnName = "nomUsuario")
+    @ManyToOne
+    private Usuario nomUsuario;
+    @JoinColumn(name = "idArchivo", referencedColumnName = "idArchivo")
+    @ManyToOne
+    private Archivo idArchivo;
 
     public Registro() {
     }
@@ -120,6 +128,22 @@ public class Registro implements Serializable {
 
     public void setPaginaFin(Integer paginaFin) {
         this.paginaFin = paginaFin;
+    }
+
+    public Usuario getNomUsuario() {
+        return nomUsuario;
+    }
+
+    public void setNomUsuario(Usuario nomUsuario) {
+        this.nomUsuario = nomUsuario;
+    }
+
+    public Archivo getIdArchivo() {
+        return idArchivo;
+    }
+
+    public void setIdArchivo(Archivo idArchivo) {
+        this.idArchivo = idArchivo;
     }
 
     @Override

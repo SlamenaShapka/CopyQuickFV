@@ -6,6 +6,7 @@
 package com.CopyQuick.Model.VO;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -34,6 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByContrasena", query = "SELECT u FROM Usuario u WHERE u.contrasena = :contrasena"),
     @NamedQuery(name = "Usuario.findByTipo", query = "SELECT u FROM Usuario u WHERE u.tipo = :tipo")})
 public class Usuario implements Serializable {
+    @OneToMany(mappedBy = "nomUsuario")
+    private Collection<Registro> registroCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -156,6 +159,15 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "com.CopyQuick.Model.VO.Usuario[ nomUsuario=" + nomUsuario + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Registro> getRegistroCollection() {
+        return registroCollection;
+    }
+
+    public void setRegistroCollection(Collection<Registro> registroCollection) {
+        this.registroCollection = registroCollection;
     }
     
 }

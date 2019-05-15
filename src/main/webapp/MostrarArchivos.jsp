@@ -12,6 +12,7 @@
         <title>CopyQuick</title>
         <script src="JS/jquery-3.3.1.min.js"></script>
         <script src="JS/ajax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     </head>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Comfortaa');
@@ -68,12 +69,34 @@
             text-align: center;
         }
 
-        button.idArchivoo{
+        button{
             border: none;
             background: none;
             width: 100%;
             height: 100%;
             font-family: 'Comfortaa', cursive;
+        }
+        input{
+            margin-bottom: 15px;
+            text-align: center;
+            color: rgba(0, 0, 0, 0.603);
+            background-color: rgb(233, 232, 232);
+            border:none;
+            font-family: 'Comfortaa', cursive;
+        }
+        button.BTN{
+            font-size: 5mm;
+            border: none;
+            border-radius: 8px;
+            background: rgb(0, 183, 255);
+            font-family: 'Comfortaa', cursive;
+            color:white;
+            height: 5%;
+        }
+        input#prop{
+            width: 30mm;
+            height: 10mm;
+            text-align: center;
         }
     </style>
 
@@ -87,17 +110,16 @@
                 <div class="containerBody">
                     <br>
                     <br>
-                    <table style="border-collapse: collapse" class="listArchivos">
-                        <tr>
-                            <th># Archivo</th>
-                            <th>Nombre Archivo</th>
-                            <th>Profesor</th>
-                            <th>Semestre</th>
-                        </tr>
-                    </table>
-
-                    <br>
-                    <br>
+                    <center id="popUp">
+                        <table style="border-collapse: collapse" class="listArchivos">
+                            <tr>
+                                <th># Archivo</th>
+                                <th>Nombre Archivo</th>
+                                <th>Usuario</th>
+                                <th># Paginas</th>
+                            </tr>
+                        </table>
+                    </center>
                 </div>
             </div>
         </div>
@@ -105,4 +127,9 @@
     <script>
         $(document).ready(mostrarArchivos());
     </script>
+    <script>
+        function prop(id){
+            return $("#prop").val();
+        }
+        </script>
 </html>

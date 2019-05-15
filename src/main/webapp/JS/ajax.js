@@ -50,7 +50,11 @@ function ingresar() {
             } else {
                 var usuario = JSON.parse(result);
                 setCookie(nomUsuario, 1);
-                window.location.replace("VistaEstudiante.jsp");
+                if (usuario.tipo === "Estudiante") {
+                    window.location.replace("VistaEstudiante.jsp");
+                } else {
+                    window.location.replace("VistaProfesor.jsp");
+                }
             }
         }
     });
@@ -149,31 +153,7 @@ function verSaldo() {
 }
 
 ////Vista completa de archivos
-//----------Archivo escogido-------------------------------------------------------------------------------------
-function archivoEscogido(idFile) {
-    var id = idFile;
-    info = {
-        "idArchivo": id
-    };
-    dataToSend = JSON.stringify(info);
-    $.ajax({
-        url: "http://localhost:8080/CopyQuickFV/ServletArchivoEscogido",
-        type: "POST",
-        dataType: 'json',
-        contentType: "application/json;charset=UTF-8",
-        data: dataToSend,
-        success: function (rta) {
-            console.log(rta);
-            var result = rta.toString();
-            console.log(result);
-//            $('.archivo').append('<embed src="C:/Users/PC02/Desktop/ArchivosCopyQuick/'+rta.nombre+'#toolbar=0" width="450" height="500" id="archivo">');
-//            $('.nombreArchivo').append('<label id="nameFile">'+rta.nombre+'</label>');
-            window.location.href = "ArchivoEscogido.jsp?Archivo=" + rta.nombre;
-        }
-    });
 
-
-}
 //----------Ver archivos----------------------------------------------------------------------------------------
 function mostrarArchivos() {
     $.ajax({
@@ -184,10 +164,57 @@ function mostrarArchivos() {
             for (var i = 0; i < archivos.length; i++) {
                 var detalle = archivos[i].split(",");
                 $(".listArchivos").append('<tr>\n\
-                                                <td><button class="idArchivoo" onclick="archivoEscogido(' + detalle[0] + ')">' + detalle[0] + '</button></td>\n\
+                                                <td><button onclick="numPaginas(' + detalle[0] + ')">' + detalle[0] + '</button></td>\n\
                                                 <td>' + detalle[1] + '</td>\n\
                                                 <td>' + detalle[2] + '</td>\n\
+                                                <td>' + detalle[3] + '</td>\n\
                                            </tr>');
+            }
+        }
+    });
+}
+
+function numPaginas(idFile) {
+    $("#popUp").append('<br><br><center>\n\
+                        <div id="numm" style="border: 1px solid black;">\n\
+                            <h4>Rango de hojas</h4>\n\
+                            <input type="text" id="idArchivo" value="' + idFile + '" style="display:none">\n\
+                            <input type="text" id="pagIni" placeholder="Pagina Inicial">\n\
+                            <input type="text" id="pagFin" placeholder="Pagina Final">\n\
+                            <button class="BTN" onclick="archivoEscogido()" style="height: 7.5%; width: 30%">Imprimir</button>\n\
+                            <br>\n\
+                            <br>\n\
+                        </div>\n\
+                    </center>');
+}
+
+//----------Archivo escogido-------------------------------------------------------------------------------------
+function archivoEscogido() {
+    var nomUsuario = getCookie("hola");
+    var numArchivo = $('#idArchivo').val();
+    var pagIni = $('#pagIni').val();
+    var pagFin = $('#pagFin').val();
+    info = {
+        "idArchivo": numArchivo,
+        "pagIni": pagIni,
+        "pagFin": pagFin,
+        "nomUsuario": nomUsuario
+    };
+    dataToSend = JSON.stringify(info);
+    console.log(dataToSend);
+    $.ajax({
+        url: "http://localhost:8080/CopyQuickFV/ServletRegistroQR",
+        type: "POST",
+        dataType: 'json',
+        contentType: "application/json;charset=UTF-8",
+        data: dataToSend,
+        success: function (rta) {
+            console.log(rta);
+        },
+        complete: function (rta) {
+            console.log(rta);
+            if (rta.responseText != "Error") {
+                window.location.replace("QR.jsp?" + rta.responseText);
             }
         }
     });
@@ -291,10 +318,7 @@ function saveFile(file_data) {
     return filename;
 }
 
-function generarqr2(nameFile) {
-    var name = nameFile;
 
-}
 
 function nameFile() {
     var sPaginaURL = window.location.search.substring(1);
@@ -304,19 +328,6 @@ function nameFile() {
     return nameFile;
 }
 
-function generarRegistro(){
-    var nomUsuario = getCookie();
-    
-    $.ajax({
-        url: "http://localhost:8080/CopyQuickFV/ServletRegistroQR",
-        type: "POST",
-        dataType: 'json',
-        contentType: "application/json;charset=UTF-8",
-        data: dataToSend,
-        complete: function (rta) {
-            
-        }
-    });
-}
+
 
 

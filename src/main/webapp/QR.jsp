@@ -157,7 +157,7 @@
                 <div class="login-container">
                     <text id="item_txt" type="text" placeholder="Ingresa algún texto" value="">
 
-                    <button id="generarqr" onclick="generateQR()">Generar</button> 
+                    <button id="generarqr" onclick="generarqr2()">Generar</button> 
                     <div id="codigoQR"></div> 
                     <h1>Dirigete a la fotocopiadora con este código y recibe tu impresion</h1>
 
@@ -168,20 +168,12 @@
         <script src="JS/jquery.min.js"></script>
         <script src="JS/qrcode.js"></script>
         <script>
-            var sPaginaURL = window.location.search.substring(1);
-            var nameFile = sPaginaURL.substring(sPaginaURL.indexOf("=") + 1, sPaginaURL.length);
-            var miCodigoQR = new QRCode("codigoQR");
-            function generateQR() {
-                var cadena = nameFile;
-                if (cadena == "") {
-                    alert("Ingresa un texto");
-                    $("#item_txt").focus();
-                } else {
-                    miCodigoQR.makeCode(cadena);
-                }
-            }
-
-
+                        function generarqr2() {
+                            var sPaginaURL = window.location.search.substring(1);
+                            var nameFile = sPaginaURL.substring(sPaginaURL.indexOf("?") + 1, sPaginaURL.length);
+                            var miCodigoQR = new QRCode("codigoQR");
+                            miCodigoQR.makeCode(nameFile);
+                        }
         </script>
     </html>
 

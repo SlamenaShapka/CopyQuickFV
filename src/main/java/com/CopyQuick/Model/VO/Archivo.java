@@ -6,6 +6,7 @@
 package com.CopyQuick.Model.VO;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,10 +17,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,6 +40,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Archivo.findByPublico", query = "SELECT a FROM Archivo a WHERE a.publico = :publico"),
     @NamedQuery(name = "Archivo.findByNumHojas", query = "SELECT a FROM Archivo a WHERE a.numHojas = :numHojas")})
 public class Archivo implements Serializable {
+    @OneToMany(mappedBy = "idArchivo")
+    private Collection<Registro> registroCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -164,6 +169,15 @@ public class Archivo implements Serializable {
     @Override
     public String toString() {
         return "com.CopyQuick.Model.VO.Archivo[ idArchivo=" + idArchivo + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Registro> getRegistroCollection() {
+        return registroCollection;
+    }
+
+    public void setRegistroCollection(Collection<Registro> registroCollection) {
+        this.registroCollection = registroCollection;
     }
     
 }
