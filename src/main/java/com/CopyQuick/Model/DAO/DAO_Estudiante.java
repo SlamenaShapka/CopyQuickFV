@@ -48,4 +48,12 @@ public class DAO_Estudiante {
         Query query = em.createQuery("SELECT e FROM Estudiante e WHERE e.nomUsuario='"+user.getNomUsuario()+"'");
         return (ArrayList<Estudiante>) query.getResultList();
     }
+    
+    public void setEstudiante(Estudiante estudiante){
+        em = EMF.get().createEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createQuery("UPDATE Estudiante e SET e.saldo="+estudiante.getSaldo()+" WHERE e.nomUsuario='"+estudiante.getNomUsuario().getNomUsuario()+"'");
+        query.getResultList();
+        
+    }
 }
