@@ -9,15 +9,15 @@
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <script src="jquery-3.3.1.min.js"></script>
-        <script src="ajax.js"></script>
+        <script src="JS/jquery-3.3.1.min.js"></script>
+        <script src="JS/ajax.js"></script>
         <title>JSP Page</title>
         <style>
             @import url('https://fonts.googleapis.com/css?family=Comfortaa');
             @font-face{
 
                 font-family:Jek;
-                src:url(Fontjek.otf);
+                src:url(Imagenes/Fontjek.otf);
             }
 
 
@@ -143,12 +143,12 @@
             <div class="administrador-triangle"></div>
             <h2 class="administrador-header">Copy</h2>
             <h3 class="administrador-header">Quick</h3>
-            <form action="/saldo" class="administrador-container" method="post">
+            <div class="administrador-container">
                 <p align="center"> Ingrese los datos que se le piden a continuación</p>
                 <input action="" id="nomUsuario" placeholder="Nombre de Usuario"> &nbsp;
                 <input action="" id="saldo" placeholder="Saldo"> &nbsp;
                 <center> <button onclick="agregarsaldo()" class="button">Agregar Saldo</button> </center>
-            </form>
+            </div>
             <div> </div>
         </div>
     </body>

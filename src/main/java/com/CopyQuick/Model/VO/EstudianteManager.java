@@ -23,5 +23,9 @@ public class EstudianteManager {
     public Estudiante findEstByNomUser(Usuario user){
         return de.findEstByNomUser(user).get(0);
     }
+    
+    public void SetEstudiante(Estudiante estudiante){
+        de.setEstudiante(estudiante);
+    }
 
 }

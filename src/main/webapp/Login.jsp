@@ -12,14 +12,25 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <title>CopyQuick</title>
-        <script src="JS/jquery-3.3.1.min.js"></script>
-        <script src="JS/ajax.js"></script>
-    </head>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <!--
+To change this license header, choose License Headers in Project Properties.To change this template file, choose Tools | Templates
+and open the template in the editor.-->
+    <title>CopyQuick</title>
+    <script src="JS/jquery-3.3.1.min.js"></script>
+    <script src="JS/ajax.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Comfortaa');
-        body {
+        
+      
+      @import url('https://fonts.googleapis.com/css?family=Comfortaa');
+      @font-face{      
+            font-family:Jek;
+            src:url(Imagenes/Fontjek.otf);
+            }
+      body {
             background: #456;
             font-family: 'Comfortaa', cursive;
         }
@@ -30,6 +41,7 @@ and open the template in the editor.
         }
         .login-header,
         .login p {
+          	
             margin-top: 0;
             margin-bottom: 0;
         }
@@ -41,13 +53,13 @@ and open the template in the editor.
             border-bottom-color: #28d;
         }
         .login-header {
+          	font-family:Jek;
             background: #28d;
-            padding: 30px;
+            padding: 3px;
             font-size: 1.4em;
             font-weight: normal;
             text-align: center;
             text-transform: uppercase;
-            color: #fff;
         }
         .login-container {
             background: #ebebeb;
@@ -110,37 +122,36 @@ and open the template in the editor.
             font-family: 'Comfortaa', cursive;
             color: rgb(255, 82, 82);
         }
+      h2{
+       color: #fff;
+      }
+      h3{
+       color: #FFFF00;
+      }
     </style>
     <title>index</title>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="login">
+      <div class="login-triangle"></div>
+      <h2 class="login-header">Copy</h2>
+      <h3 class="login-header">Quick</h3>
+      <div class="login-container" action="ControladorLogin" method="post"> <input
 
+          id="nombrePag" value="index" type="hidden">
+        <h4 class="result"></h4>
+        <p><input id="nomUsuario" placeholder="Usuario" type="text"></p>
+        <p><input id="contrasena" placeholder="Contraseña" type="password"></p>
+        <p align="center"> <input id="Ingresar" value="Ingresar" onclick="ingresar()"
 
-    <body>
-        <div class="login">
-            <div class="login-triangle"></div>
+type="submit"> &nbsp; <input id="Registrar" value="Registrarse" onclick="myFunction()"
 
-            <h2 class="login-header">CopyQuick</h2>
-
-
-            <div class="login-container" action="ControladorLogin" method="post">
-                <input  type="hidden" id="nombrePag" value="index">
-                <h4 class="result"></h4>
-                <p><input type="text" id="nomUsuario"  placeholder="Usuario"></p>
-                <p><input type="password" id="contrasena" placeholder="Contraseña"></p>
-                <p align="center">
-                    <input type="submit" id="Ingresar" value="Ingresar" onclick="ingresar()">
-                    &nbsp;
-                    <input id="Registrar" type="submit" value="Registrarse" onclick="myFunction()">
-                </p>
-
-
-            </div>
-        </div>
-        <script>
+type="submit"> </p>
+      </div>
+    </div>
+    <script>
             function myFunction() {
                 location.href = "Registro.jsp";
             }
         </script>
-    </body>
+  </body>
 </html>

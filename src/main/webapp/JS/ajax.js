@@ -133,8 +133,47 @@ function registrar() {
 
 }
 
+//administrador
+//agregarsaldo
+
+function agregarsaldo() {
+    var nomUsuario = $('#nomUsuario').val();
+    var saldo = $('#saldo').val();
+    info = {
+        "nomUusario": nomUsuario,
+        "saldo": saldo
+    };
+    dataToSend = JSON.stringify(info);
+    $.ajax({            
+        url: "http://localhost:8080/CopyQuickFV/ServletSaldo",
+        type: "POST",
+        data: dataToSend,
+        success: function (rta) {
+            var result = rta.toString();
+            if (result.startsWith("SaldoAgregado")) {
+                console.log("SaldoAgregado");
+                console.log(result);
+                $("#bien").remove();
+                $("#mal").remove();
+                $(".result").append('<h5 id="bien">Se ha agregado el saldo exitosamente</h5>');
+                nomUsuario = $('#nomUsuario').val("");
+                saldo = $('#saldo').val("");
+            }else {
+                console.log("FaltanDatos");
+                console.log(result);
+                $("#bien").remove();
+                $("#mal").remove();
+                $(".result").append('<h5 id="mal">Faltan campos por llenar</h5>');
+            }
+        
+        }
+    });
+
+}
+
 ////Vista estudiante
 //----------Ver saldo--------------------------------------------------------------------------------------------
+
 function verSaldo() {
     var nomUsuario = getCookie();
     console.log(nomUsuario);
@@ -143,14 +182,16 @@ function verSaldo() {
     };
     dataToSend = JSON.stringify(info);
     $.ajax({
-        url: "http://localhost:8080/CopyQuick/ServletSaldo",
-        type: "POST",
+        url: "http://localhost:8080/CopyQuickFV/ServletSaldo",
+        type: "GET",
         data: dataToSend,
         success: function (rta) {
-            $("#saldo").append('<label class="saldo">' + rta + '</label>');
+
         }
     });
 }
+
+
 
 ////Vista completa de archivos
 //----------Archivo escogido-------------------------------------------------------------------------------------

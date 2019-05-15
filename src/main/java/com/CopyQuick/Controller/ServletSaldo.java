@@ -57,20 +57,6 @@ public class ServletSaldo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         EstudianteManager em = new EstudianteManager();
         ProfesorManager pm = new ProfesorManager();
         UserManager um = new UserManager();
@@ -110,6 +96,42 @@ public class ServletSaldo extends HttpServlet {
                 out.println(saldo);
             }
         }
+
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String[] json = null;
+        json = (Utils.readParams(request)).split(",");
+        json[0] = json[0].substring(1);
+        json[json.length - 1] = json[json.length - 1].substring(0, json[json.length - 1].length() - 1);
+        String[][] datos = new String[json.length][2];
+        for (int i = 0; i < json.length; i++) {
+            String[] split = json[i].split(":");
+            datos[i][0] = split[0];
+            datos[i][1] = split[1].substring(1, split[1].length() - 1);
+        }
+        
+        UserManager um = new UserManager();
+        Usuario user = new Usuario();
+        user.setNomUsuario(datos[0][1]);
+        
+        EstudianteManager em = new EstudianteManager();
+        Estudiante estudiantebd = new Estudiante();
+        estudiantebd = em.findEstByNomUser(user);
+        
+        estudiantebd.setSaldo(estudiantebd.getSaldo()+Integer.parseInt(datos[1][1]));
+        
+        em.SetEstudiante(estudiantebd);
     }
 
     /**
